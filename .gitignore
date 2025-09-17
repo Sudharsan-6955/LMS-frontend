@@ -1,3 +1,4 @@
+!src/page/ResetPasswordPage.jsx
 
 # Ignore all JSX files in pages and components by default
 src/page/*.jsx
