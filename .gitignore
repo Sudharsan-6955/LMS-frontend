@@ -1,9 +1,11 @@
+!src/page/AdminDashboard.jsx
 !src/page/ForgotPasswordPage.jsx
 !src/page/ResetPasswordPage.jsx
 !src/page/ResetPasswordPage.jsx
 
 # Ignore all JSX files in pages and components by default
 src/page/*.jsx
+!src/page/ResetPasswordPage.jsx
 src/component/**/*.jsx
 
 # Do NOT ignore the active pages and components
