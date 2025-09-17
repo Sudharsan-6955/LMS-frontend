@@ -23,7 +23,7 @@ const HeaderTwo = () => {
                 <div className="header-wrapper">
                     <div className="logo-search-acte">
                         <div className="logo">
-                            <Link to="/"><img src="assets/images/logo/01.png" alt="logo" /></Link>
+                            <Link to="/"><img src="/assets/images/logo/01.png" alt="logo" /></Link>
                         </div>
                         <div className="cate-search d-none d-xxl-block">
                             <div className="d-flex flex-wrap align-items-center">
@@ -59,6 +59,7 @@ const HeaderTwo = () => {
                                     <ul className="lab-ul dropdown-menu">
                                         <li><NavLink to="/course">Course</NavLink></li>
                                         <li><NavLink to="/course-single">Course Details</NavLink></li>
+                                        <li><NavLink to="/course-view">Course View</NavLink></li>
                                     </ul>
                                 </li>
                                 <li className="menu-item-has-children">

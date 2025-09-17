@@ -1,3 +1,39 @@
+# Ignore backend folder and its contents
+backend/
+# Ignore all JSX files in pages and components by default
+src/page/*.jsx
+src/component/**/*.jsx
+
+# But do NOT ignore the active pages
+!src/page/home.jsx
+!src/page/course.jsx
+!src/page/about.jsx
+!src/page/team.jsx
+!src/page/instructor.jsx
+!src/page/contact.jsx
+!src/page/MyEnrolledCourses.jsx
+!src/page/login.jsx
+!src/page/signup.jsx
+!src/page/AdminLogin.jsx
+
+# And do NOT ignore the active components
+!src/component/layout/footer.jsx
+!src/component/layout/header.jsx
+!src/component/layout/pageheader.jsx
+!src/component/section/about.jsx
+!src/component/section/achievement.jsx
+!src/component/section/achievement-2.jsx
+!src/component/section/banner.jsx
+!src/component/section/blog.jsx
+!src/component/section/category.jsx
+!src/component/section/course.jsx
+!src/component/section/instructor.jsx
+!src/component/section/sponsor.jsx
+!src/component/section/student.jsx
+!src/component/sidebar/group-select.jsx
+!src/component/sidebar/pagination.jsx
+!src/component/sidebar/rating.jsx
+!src/component/sidebar/googlemap.jsx
 # See https://help.github.com/articles/ignoring-files/ for more about ignoring files.
 
 # dependencies

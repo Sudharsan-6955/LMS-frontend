@@ -1,5 +1,7 @@
 
+
 import CountUp from 'react-countup';
+import { Link, useNavigate } from 'react-router-dom';
 
 const subTitle = "START TO SUCCESS";
 const title = "Achieve Your Goals With Edukon";
@@ -31,7 +33,7 @@ const achieveList = [
         title: 'Start Teaching Today',
         desc: 'Seamlessly engage technically sound coaborative reintermed goal oriented content rather than ethica',
         btnText: 'Become A Instructor',
-        siteLink: '#',
+        siteLink: '/become-instructor',
     },
     {
         imgUrl: 'assets/images/achive/02.png',
@@ -39,12 +41,13 @@ const achieveList = [
         title: 'If You Join Our Course',
         desc: 'Seamlessly engage technically sound coaborative reintermed goal oriented content rather than ethica',
         btnText: 'Register For Free',
-        siteLink: '#',
+        siteLink: '/login',
     },
 ]
 
 
 const Achievement = () => {
+    const navigate = useNavigate();
     return (
         <div className="achievement-section padding-tb">
             <div className="container">
@@ -81,7 +84,13 @@ const Achievement = () => {
                                             <div className="achieve-content">
                                                 <h4>{val.title}</h4>
                                                 <p>{val.desc}</p>
-                                                <a href={val.siteLink} className="lab-btn"><span>{val.btnText}</span></a>
+                                                {val.btnText === 'Become A Instructor' ? (
+                                                    <Link to="/become-instructor" className="lab-btn"><span>{val.btnText}</span></Link>
+                                                ) : val.btnText === 'Register For Free' ? (
+                                                    <Link to="/login" className="lab-btn"><span>{val.btnText}</span></Link>
+                                                ) : (
+                                                    <a href={val.siteLink} className="lab-btn"><span>{val.btnText}</span></a>
+                                                )}
                                             </div>
                                         </div>
                                     </div>

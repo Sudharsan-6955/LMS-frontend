@@ -1,6 +1,6 @@
-
-import {BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import 'swiper/css';
+import { useEffect } from 'react';
 
 
 import ScrollToTop from "./component/layout/ScrollToTop";
@@ -14,6 +14,7 @@ import CartPage from "./page/cart-page";
 import ContactPage from "./page/contact";
 import CoursePage from "./page/course";
 import CourseSingle from "./page/course-single";
+import CourseView from "./page/course-view";
 import ForgetPass from "./page/forgetpass";
 import Home from "./page/home";
 import HomeTwo from "./page/home-2";
@@ -31,14 +32,44 @@ import ShopDetails from "./page/shop-single";
 import SignupPage from "./page/signup";
 import TeamPage from "./page/team";
 import TeamSingle from "./page/team-single";
+import BecomeInstructor from "./page/BecomeInstructor";
+import AuthorApplications from "./page/AuthorApplications";
+import ForgotPasswordPage from './page/ForgotPasswordPage';
+import ResetPasswordPage from './page/ResetPasswordPage';
+import MyEnrolledCourses from "./page/MyEnrolledCourses";
+import AdminLogin from "./page/AdminLogin"
+import AdminDashboard from "./page/AdminDashboard"
+import AdminAddCourse from "./page/AdminAddCourse"
+import AdminEditCourse from "./page/AdminEditCourse"
+import AdminSignup from './page/AdminSignup';
 
 
 
 function App() {
+	useEffect(() => {
+		const tokenData = localStorage.getItem('adminToken');
+		if (tokenData) {
+			try {
+				const { token, loginTime } = JSON.parse(tokenData);
+				if (!token || !loginTime || Date.now() - loginTime > 24 * 60 * 60 * 1000) {
+					localStorage.removeItem('adminToken');
+				}
+			} catch {
+				localStorage.removeItem('adminToken');
+			}
+		}
+	}, []);
+
 	return (
 		<BrowserRouter>
 			<ScrollToTop />
 			<Routes>
+				<Route path="/admin-login" element={<AdminLogin />} />
+				<Route path="/admin-dashboard" element={<AdminDashboard />} />
+				<Route path="/admin/add-course" element={<AdminAddCourse />} />
+				<Route path="/admin-edit-course/:id" element={<AdminEditCourse />} />
+				<Route path="/admin-signup" element={<AdminSignup />} />
+
 				<Route path="/" element={<Home />} />
 				<Route path="index-2" element={<HomeTwo />} />
 				<Route path="index-3" element={<HomeThree />} />
@@ -48,6 +79,11 @@ function App() {
 				<Route path="index-7" element={<HomeSeven />} />
 				<Route path="course" element={<CoursePage />} />
 				<Route path="course-single" element={<CourseSingle />} />
+				<Route path="/course-single/:id" element={<CourseSingle />} />
+				<Route path="course-view/:courseId" element={<CourseView />} />
+				<Route path="/forgot-password" element={<ForgotPasswordPage />} />
+				<Route path="/reset-password/:token" element={<ResetPasswordPage />} />
+				<Route path="/my-courses" element={<MyEnrolledCourses />} />
 				<Route path="blog" element={<BlogPage />} />
 				<Route path="blog-2" element={<BlogPageTwo />} />
 				<Route path="blog-3" element={<BlogPageThree />} />
@@ -62,9 +98,11 @@ function App() {
 				<Route path="search-page" element={<SearchPage />} />
 				<Route path="search-none" element={<SearchNone />} />
 				<Route path="contact" element={<ContactPage />} />
+				<Route path="become-instructor" element={<BecomeInstructor />} />
 				<Route path="login" element={<LoginPage />} />
 				<Route path="signup" element={<SignupPage />} />
 				<Route path="forgetpass" element={<ForgetPass />} />
+				<Route path="admin/author-applications" element={<AuthorApplications />} />
 				<Route path="*" element={<ErrorPage />} />
 			</Routes>
 		</BrowserRouter>

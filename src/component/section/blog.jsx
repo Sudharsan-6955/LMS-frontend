@@ -33,7 +33,7 @@ const blogList = [
         title: 'Scottish Creatives To Receive Funded Business.',
         author: 'Begrass Tyson',
         date: 'April 23,2022',
-        desc: 'Pluoresnts customize prancing apcentered customer service anding ands asing straelg Interacvely cordinate performe',
+        desc: 'Pluoresnts customie prancing apcentered customer service anding ands asing straelg Interacvely cordinate performe',
         btnText: 'Read more',
         commentCount: '6',
     },

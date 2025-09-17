@@ -23,7 +23,7 @@ const Home = () => {
             <About />
             <Instructor />
             <Student />
-            <Blog />
+            {/* <Blog /> */}
             <Achievement />
             <Footer />
         </Fragment>

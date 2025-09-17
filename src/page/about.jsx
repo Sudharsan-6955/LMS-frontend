@@ -95,7 +95,7 @@ const AboutPage = () => {
             <Instructor />
             <Skill />
             <AchievementTwo />
-            <Blog />
+            {/* <Blog /> */}
             <Footer />
         </Fragment>
     );

@@ -1,22 +1,27 @@
+import Select from "react-select";
 
+const options = [
+  { value: "all", label: "All" },
+  { value: "beginner", label: "Beginner" },
+  { value: "intermediate", label: "Intermediate" },
+  { value: "advanced", label: "Advanced" },
+];
 
+const SkillSelect = ({ value, onChange }) => {
+  const handleChange = (selectedOption) => {
+    onChange("skill", selectedOption.value);
+  };
 
+  return (
+    <div className="filter-box">
+      <label>Skill</label>
+      <Select
+        options={options}
+        defaultValue={options.find(o => o.value === value)}
+        onChange={handleChange}
+      />
+    </div>
+  );
+};
 
-const SkillSelect = ({select}) => {
-    return (
-        <select defaultValue={select}>
-            <option value="all">All Skills</option>
-            <option value="html">HTML</option>
-            <option value="css">CSS</option>
-            <option value="php">PHP</option>
-            <option value="java">JAVA</option>
-            <option value="javascript">JAVASCRIPT</option>
-            <option value="wordpress">WORDPRESS</option>
-            <option value="react">REACT</option>
-            <option value="vue">VUE</option>
-            <option value="angular">ANGULAR</option>
-        </select>
-    );
-}
- 
 export default SkillSelect;

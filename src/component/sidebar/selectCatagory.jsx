@@ -1,9 +1,9 @@
 
 
 
-const SelectCatagory = ({select}) => {
+const SelectCatagory = ({ select, onChange }) => {
     return (
-        <select defaultValue={select}>
+        <select value={select} onChange={(e) => onChange(e.target.value)}>
             <option value="all">All Categories</option>
             <option value="uncategorized">Uncategorized</option>
             <option value="academy">Academy</option>

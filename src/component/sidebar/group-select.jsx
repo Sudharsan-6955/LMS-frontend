@@ -1,66 +1,83 @@
+import Select from 'react-select';
 
-import PriceSelect from "./price-select";
-import SelectLanguage from "./select-language";
-import SelectCatagory from "./selectCatagory";
-import SkillSelect from "./skill-select";
+const GroupSelect = ({
+  onFilterChange,
+  filters,
+  categoryOptions = [],
+  languageOptions = [],
+  skillOptions = [],
+  priceOptions = [],
+}) => {
+  const customStyles = {
+    container: (base) => ({ ...base, width: '100%', marginBottom: '1rem' }),
+  };
 
+  const prependAllOption = (options, allLabel) => [
+    { value: 'all', label: allLabel },
+    ...options.map(value => {
+      const strVal = String(value);
+      return {
+        value: strVal,
+        label: typeof value === 'number'
+          ? (value === 0 ? 'Free' : `₹${value}`)
+          : strVal
+      };
+    }),
+  ];
 
+  const getSelectedOption = (options, value, allLabel) => {
+    const strVal = String(value);
+    if (strVal === 'all') {
+      return { value: 'all', label: allLabel };
+    }
+    const matched = options.find(opt => String(opt) === strVal);
+    return {
+      value: strVal,
+      label:
+        typeof matched === 'number'
+          ? (matched === 0 ? 'Free' : `₹${matched}`)
+          : strVal,
+    };
+  };
 
-const GroupSelect = () => {
-    return (
-        <div className="group-select-section">
-            <div className="container">
-                <div className="section-wrapper">
-                    <div className="row align-items-center g-4">
-                        <div className="col-md-1">
-                            <div className="group-select-left">
-                                <i className="icofont-abacus-alt"></i>
-                                <span>Filters</span>
-                            </div>
-                        </div>
-                        <div className="col-md-11">
-                            <div className="group-select-right">
-                                <div className="row g-2 row-cols-lg-4 row-cols-sm-2 row-cols-1">
-                                    <div className="col">
-                                        <div className="select-item">
-                                            <SelectCatagory select={'all'} />
-                                            <div className="select-icon">
-                                                <i className="icofont-rounded-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="select-item">
-                                            <SelectLanguage select={'all'} />
-                                            <div className="select-icon">
-                                                <i className="icofont-rounded-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="select-item">
-                                            <PriceSelect select={'all'} />
-                                            <div className="select-icon">
-                                                <i className="icofont-rounded-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="col">
-                                        <div className="select-item">
-                                            <SkillSelect select={'all'} />
-                                            <div className="select-icon">
-                                                <i className="icofont-rounded-down"></i>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
+  return (
+    <div className="container">
+      <div className="row">
+        <div className="col-md-3">
+          <Select
+            styles={customStyles}
+            options={prependAllOption(categoryOptions, 'All Categories')}
+            value={getSelectedOption(categoryOptions, filters.category, 'All Categories')}
+            onChange={selected => onFilterChange('category', selected.value)}
+          />
         </div>
-    );
-}
- 
+        <div className="col-md-3">
+          <Select
+            styles={customStyles}
+            options={prependAllOption(languageOptions, 'All Languages')}
+            value={getSelectedOption(languageOptions, filters.language, 'All Languages')}
+            onChange={selected => onFilterChange('language', selected.value)}
+          />
+        </div>
+        <div className="col-md-3">
+          <Select
+            styles={customStyles}
+            options={prependAllOption(skillOptions, 'All Skills')}
+            value={getSelectedOption(skillOptions, filters.skill, 'All Skills')}
+            onChange={selected => onFilterChange('skill', selected.value)}
+          />
+        </div>
+        <div className="col-md-3">
+          <Select
+            styles={customStyles}
+            options={prependAllOption(priceOptions, 'All Prices')}
+            value={getSelectedOption(priceOptions, filters.price, 'All Prices')}
+            onChange={selected => onFilterChange('price', selected.value)}
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
+
 export default GroupSelect;

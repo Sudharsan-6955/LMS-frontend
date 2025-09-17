@@ -1,46 +1,39 @@
-
+import { useEffect, useState } from "react";
+import axios from "axios";
 import Rating from "./rating";
 
-const title = "02 Comment";
-
-
-const commentList = [
-    {
-        imgUrl: 'assets/images/author/02.jpg',
-        imgAlt: 'rajibraj91',
-        name: 'Linsa Faith',
-        date: 'Jun 5, 2022 at 12:41 pm',
-        desc: 'The inner sanctuary, I throw myself down among the tall grass bye the trckli stream and, as I lie close to the earth',
-    },
-    {
-        imgUrl: 'assets/images/author/03.jpg',
-        imgAlt: 'rajibraj91',
-        name: 'Mahdi Mahmud',
-        date: 'Jun 5, 2022 at 12:41 pm',
-        desc: 'The inner sanctuary, I throw myself down among the tall grass bye the trckli stream and, as I lie close to the earth',
-    },
-]
-
-
-const Comment = () => {
+const Comment = ({ courseId, refresh }) => {
+    const [comments, setComments] = useState([]);
+    useEffect(() => {
+        if (!courseId) return;
+        axios.get(`http://localhost:5000/api/comments/${courseId}`)
+            .then(res => setComments(res.data))
+            .catch(() => setComments([]));
+    }, [courseId, refresh]);
     return (
         <div className="comments">
-            <h4 className="title-border">{title}</h4>
+            <h4 className="title-border">{comments.length} Comment{comments.length !== 1 ? "s" : ""}</h4>
             <ul className="comment-list">
-                {commentList.map((val, i) => (
-                    <li className="comment" key={i}>
+                {comments.map((val, i) => (
+                    <li className="comment" key={val._id || i}>
                         <div className="com-thumb">
-                            <img src={`${val.imgUrl}`} alt={`${val.imgAlt}`} />          
+                            {val.imgUrl ? (
+                                <img src={val.imgUrl} alt={val.name} />
+                            ) : (
+                                <div style={{width:40,height:40,borderRadius:'50%',background:'#eee',display:'flex',alignItems:'center',justifyContent:'center',fontSize:'1.5em',color:'#888'}}>
+                                    {val.name ? val.name.charAt(0).toUpperCase() : '?'}
+                                </div>
+                            )}
                         </div>
                         <div className="com-content">
                             <div className="com-title">
                                 <div className="com-title-meta">
                                     <h6>{val.name}</h6>
-                                    <span> {val.date} </span>
+                                    <span>{new Date(val.date).toLocaleString()}</span>
                                 </div>
-                                <Rating />
+                                <span style={{ color: '#ff9800', fontSize: '1.2em' }}>{'★'.repeat(val.rating)}{'☆'.repeat(5-val.rating)}</span>
                             </div>
-                            <p>{val.desc}</p>
+                            <p>{val.message}</p>
                         </div>
                     </li>
                 ))}
@@ -48,5 +41,5 @@ const Comment = () => {
         </div>
     );
 }
- 
+
 export default Comment;

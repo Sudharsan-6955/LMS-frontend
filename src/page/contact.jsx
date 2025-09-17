@@ -1,4 +1,5 @@
-import { Component, Fragment } from "react";
+import { Fragment, useState, useRef } from "react";
+import axios from "axios";
 import Footer from "../component/layout/footer";
 import Header from "../component/layout/header";
 import PageHeader from "../component/layout/pageheader";
@@ -17,19 +18,19 @@ const contactList = [
         imgUrl: 'assets/images/icon/01.png',
         imgAlt: 'contact icon',
         title: 'Office Address',
-        desc: '1201 park street, Fifth Avenue',
+        desc: 'PSN College, Tirunelveli, Melathediyoor, 627152',
     },
     {
         imgUrl: 'assets/images/icon/02.png',
         imgAlt: 'contact icon',
         title: 'Phone number',
-        desc: '+22698 745 632,02 982 745',
+        desc: '+91 9087675645',
     },
     {
         imgUrl: 'assets/images/icon/03.png',
         imgAlt: 'contact icon',
         title: 'Send email',
-        desc: 'adminedukon@gmil.com',
+        desc: 'sudharsan638294@gmail.com',
     },
     {
         imgUrl: 'assets/images/icon/04.png',
@@ -40,7 +41,51 @@ const contactList = [
 ]
 
 
+
 const ContactPage = () => {
+    const [form, setForm] = useState({
+        name: "",
+        email: "",
+        number: "",
+        subject: "",
+        message: ""
+    });
+    const [status, setStatus] = useState("");
+    const [loading, setLoading] = useState(false);
+    const formRef = useRef();
+
+    const handleChange = (e) => {
+        setForm({ ...form, [e.target.name]: e.target.value });
+        setStatus("");
+    };
+
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        setStatus("");
+        // Email validation: must contain @ and .com
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        if (!emailRegex.test(form.email)) {
+            setStatus("Please enter a valid email address.");
+            return;
+        }
+        setLoading(true);
+        try {
+            const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+            const res = await axios.post(`${apiUrl}/api/feedback`, form);
+            if (res.status === 201) {
+                setStatus("Feedback submitted successfully!");
+                setForm({ name: "", email: "", number: "", subject: "", message: "" });
+                if (formRef.current) formRef.current.reset();
+            } else {
+                setStatus(res.data.message || "Failed to submit feedback.");
+            }
+        } catch (err) {
+            setStatus(err.response?.data?.message || "Failed to submit feedback.");
+        } finally {
+            setLoading(false);
+        }
+    };
+
     return ( 
         <Fragment>
             <Header />
@@ -82,12 +127,15 @@ const ContactPage = () => {
                         <h2 className="title">{conTitle}</h2>
                     </div>
                     <div className="section-wrapper">
-                        <form className="contact-form">
+                        <form className="contact-form" onSubmit={handleSubmit} ref={formRef} autoComplete="off">
                             <div className="form-group">
                                 <input
                                     type="text"
                                     name="name"
                                     placeholder="Your Name *"
+                                    value={form.name}
+                                    onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -95,6 +143,9 @@ const ContactPage = () => {
                                     type="text"
                                     name="email"
                                     placeholder="Your Email *"
+                                    value={form.email}
+                                    onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -102,6 +153,14 @@ const ContactPage = () => {
                                     type="text"
                                     name="number"
                                     placeholder="Mobile Number *"
+                                    value={form.number}
+                                    onChange={e => {
+                                        // Only allow 0-9 and max 10 digits
+                                        const val = e.target.value.replace(/[^0-9]/g, '').slice(0, 10);
+                                        setForm({ ...form, number: val });
+                                        setStatus("");
+                                    }}
+                                    required
                                 />
                             </div>
                             <div className="form-group">
@@ -109,17 +168,38 @@ const ContactPage = () => {
                                     type="text"
                                     name="subject"
                                     placeholder="Your Subject *"
+                                    value={form.subject}
+                                    onChange={handleChange}
+                                    required
                                 />
                             </div>
                             <div className="form-group w-100">
                                 <textarea 
                                     rows="8" 
                                     type="text"
+                                    name="message"
                                     placeholder="Your Message"
+                                    value={form.message}
+                                    onChange={handleChange}
+                                    required
                                 ></textarea>
                             </div>
                             <div className="form-group w-100 text-center">
-                                <button className="lab-btn"><span>{btnText}</span></button>
+                                <button className="lab-btn" disabled={loading}><span>{loading ? "Sending..." : btnText}</span></button>
+                                {status && (
+                                    <div
+                                        className="mt-3"
+                                        style={{
+                                            color: status.toLowerCase().includes('success') ? '#51e88d' : '#e74c3c',
+                                            fontWeight: 500,
+                                            textAlign: 'center',
+                                            fontSize: '1.05rem',
+                                            marginTop: 12
+                                        }}
+                                    >
+                                        {status}
+                                    </div>
+                                )}
                             </div>
                         </form>
                     </div>
