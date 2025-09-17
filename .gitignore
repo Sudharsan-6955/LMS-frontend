@@ -20,6 +20,7 @@ src/component/**/*.jsx
 !src/component/layout/footer.jsx
 !src/component/layout/header.jsx
 !src/component/layout/pageheader.jsx
+!src/page/ForgotPasswordPage.jsx
 !src/component/section/about.jsx
 !src/component/section/achievement.jsx
 !src/component/section/achievement-2.jsx
