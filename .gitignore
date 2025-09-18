@@ -1,5 +1,5 @@
-!src/assets/css/custom-mobile-dropdown.css
-!src/component/layout/CategoryDropdown.jsx
+# Do NOT ignore CSS files in assets
+!src/assets/css/*.css
 !src/page/AdminSignup.jsx
 !src/page/AdminEditCourse.jsx
 !src/page/AdminAddCourse.jsx
