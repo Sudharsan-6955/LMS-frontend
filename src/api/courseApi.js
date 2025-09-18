@@ -1,7 +1,7 @@
 // 📁 src/api/courseApi.js
 import axios from 'axios';
 
-const API = axios.create({ baseURL: 'http://localhost:5000/api' });
+const API = axios.create({ baseURL: 'https://lms-backend-production-0239.up.railway.app/api' });
 
 export const fetchAllCourses = () => API.get('/courses');
 export const fetchCourseById = (id) => API.get(`/courses/${id}`);

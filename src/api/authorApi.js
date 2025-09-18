@@ -2,15 +2,15 @@ import axios from "axios";
 
 export const fetchAuthorsWithStats = async () => {
   // Fetch all authors
-  const authorsRes = await axios.get("http://localhost:5000/api/authors");
+  const authorsRes = await axios.get("https://lms-backend-production-0239.up.railway.app/api/authors");
   const authors = authorsRes.data;
 
   // Fetch all courses
-  const coursesRes = await axios.get("http://localhost:5000/api/courses/all");
+  const coursesRes = await axios.get("https://lms-backend-production-0239.up.railway.app/api/courses/all");
   const courses = coursesRes.data;
 
   // Fetch all enrollments
-  const enrollmentsRes = await axios.get("http://localhost:5000/api/enrollments/all");
+  const enrollmentsRes = await axios.get("https://lms-backend-production-0239.up.railway.app/api/enrollments/all");
   const enrollments = enrollmentsRes.data;
 
   // Map author stats
