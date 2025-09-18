@@ -1,3 +1,5 @@
+!src/assets/css/custom-mobile-dropdown.css
+!src/component/layout/CategoryDropdown.jsx
 !src/page/AdminSignup.jsx
 !src/page/AdminEditCourse.jsx
 !src/page/AdminAddCourse.jsx
