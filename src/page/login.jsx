@@ -33,7 +33,7 @@ const LoginPage = () => {
         setError("");
 
         try {
-            const res = await axios.post("https://lms-backend-production-0239.up.railway.app/api/auth/login", {
+            const res = await axios.post("http://localhost:5000/api/auth/login", {
                 name: formData.name,
                 password: formData.password
             });
