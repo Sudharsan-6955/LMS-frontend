@@ -47,13 +47,13 @@ const CoursePage = () => {
       setLoading(true);
       setError(null);
       try {
-        const res = await axios.get('http://localhost:5000/api/courses');
+        const res = await axios.get("https://lms-backend-production-0239.up.railway.app/api/courses");
         setCourses(res.data);
         // Fetch comment counts for each course
         const counts = {};
         await Promise.all(res.data.map(async course => {
           try {
-            const commentRes = await axios.get(`http://localhost:5000/api/comments/${course._id}`);
+            const commentRes = await axios.get(`https://lms-backend-production-0239.up.railway.app/api/comments/${course._id}`);
             counts[course._id] = commentRes.data.length;
           } catch {
             counts[course._id] = 0;
