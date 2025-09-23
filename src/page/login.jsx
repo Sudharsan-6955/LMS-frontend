@@ -33,7 +33,7 @@ const LoginPage = () => {
         setError("");
 
         try {
-            const res = await axios.post("http://localhost:5000/api/auth/login", {
+            const res = await axios.post("https://lms-backend-6ik3.onrender.com/api/auth/login", {
                 name: formData.name,
                 password: formData.password
             });

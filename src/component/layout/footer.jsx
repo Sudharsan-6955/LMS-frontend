@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import axios from "axios";
 import { Link } from "react-router-dom";
@@ -36,7 +35,7 @@ function NewsletterForm() {
         setLoading(true);
         setFunMsg("");
         try {
-            const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+            const apiUrl = process.env.REACT_APP_API_URL || "https://lms-backend-6ik3.onrender.com";
             const res = await axios.post(`${apiUrl}/api/student-emails`, { email });
             if (res.status === 201) {
                 setStatus("Subscribed successfully!");

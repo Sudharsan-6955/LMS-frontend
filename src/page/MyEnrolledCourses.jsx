@@ -12,13 +12,14 @@ const MyEnrolledCourses = () => {
       if (!user || !user._id) return;
 
       try {
+        const baseUrl = "https://lms-backend-6ik3.onrender.com";
         // 1. Fetch enrollments for the logged-in user
-        const res = await axios.get(`http://localhost:5000/api/enrollments/user/${user._id}`);
+        const res = await axios.get(`${baseUrl}/api/enrollments/user/${user._id}`);
         const enrollmentList = res.data;
 
         // 2. Fetch full course details for each courseId
         const coursePromises = enrollmentList.map(enroll =>
-          axios.get(`http://localhost:5000/api/courses/${enroll.courseId}`)
+          axios.get(`${baseUrl}/api/courses/${enroll.courseId}`)
         );
         const courseResponses = await Promise.all(coursePromises);
 

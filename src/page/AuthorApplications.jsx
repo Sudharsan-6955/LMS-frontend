@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 
-const backendUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+const backendUrl = process.env.REACT_APP_API_URL || "https://lms-backend-6ik3.onrender.com";
 
 const AuthorApplications = () => {
   const [applications, setApplications] = useState([]);

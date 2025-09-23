@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import axios from "axios";
@@ -28,7 +27,7 @@ const ResetPasswordPage = () => {
         }
         setLoading(true);
         try {
-            const apiUrl = process.env.REACT_APP_API_URL || "http://localhost:5000";
+            const apiUrl = process.env.REACT_APP_API_URL || "https://lms-backend-6ik3.onrender.com";
             const res = await axios.post(`${apiUrl}/api/auth/reset-password/${token}`, {
                 password: form.password,
             });
